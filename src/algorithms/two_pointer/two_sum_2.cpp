@@ -1,4 +1,5 @@
 #include <vector>
+#include <gtest/gtest.h>
 
 std::vector<int> twoSum(std::vector<int>& numbers, int target)
 {
@@ -26,9 +27,15 @@ std::vector<int> twoSum(std::vector<int>& numbers, int target)
   return res;
 }
 
-int main() {
+TEST(TwoPointer, Test1)
+{
   std::vector<int> numbers = {2, 7, 11, 15};
-  int target = 9;
+  std::vector<int> res = {0, 1};
+  EXPECT_EQ(twoSum(numbers, 9), res);
+}
 
-  auto res = twoSum(numbers, target);
+int main(int argc, char** argv)
+{
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

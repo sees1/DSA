@@ -2,6 +2,7 @@
 #include <string>
 #include <algorithm>
 #include <set>
+#include <gtest/gtest.h>
 
 std::vector<int> intersection(std::vector<int>& nums1, std::vector<int>& nums2)
 {
@@ -32,9 +33,16 @@ std::vector<int> intersection(std::vector<int>& nums1, std::vector<int>& nums2)
   return std::vector<int>(res.begin(), res.end());
 }
 
-int main() { 
+TEST(TwoPointer, Test1)
+{
   std::vector<int> nums1 = {1, 2, 2, 1};
   std::vector<int> nums2 = {2, 2};
+  std::vector<int> res = {2};
+  EXPECT_EQ(intersection(nums1, nums2), res);
+}
 
-  auto res = intersection(nums1, nums2);
+int main(int argc, char** argv)
+{
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

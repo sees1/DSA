@@ -2,9 +2,7 @@
 #include <set>
 #include <algorithm>
 #include <cmath>
-
-struct noeff_tag {};
-struct eff_tag {};
+#include <gtest/gtest.h>
 
 std::vector<std::vector<int>> threeSum(std::vector<int>& nums)
 {
@@ -14,7 +12,7 @@ std::vector<std::vector<int>> threeSum(std::vector<int>& nums)
 
   for(int i = 0; i < nums.size(); ++i)
   {
-    if (i > 0 && nums[i] == nums[i - 1])
+    if (i > 0 && nums[i] == nums[i - 1]) // optimization
       continue;
       
     int search = nums[i];
@@ -35,7 +33,7 @@ std::vector<std::vector<int>> threeSum(std::vector<int>& nums)
         res.push_back({search, nums[right], nums[left]});
         ++left;
 
-        while(nums[left] == nums[left - 1] && left < right)
+        while(nums[left] == nums[left - 1] && left < right) // remove dup
           ++left;
       }
     }
@@ -44,8 +42,15 @@ std::vector<std::vector<int>> threeSum(std::vector<int>& nums)
   return res;
 }
 
-int main() {
-  std::vector<int> nums = {-2,0,1,1,2};
+TEST(TwoPointer, Test1)
+{
+  std::vector<int> numbers = {-1, 0, 1, 2, -1, -4};
+  std::vector<std::vector<int>> res = {{-1, -1, 2}, {-1, 0, 1}};
+  EXPECT_EQ(threeSum(numbers), res);
+}
 
-  auto res = threeSum(nums);
+int main(int argc, char** argv)
+{
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

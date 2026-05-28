@@ -134,30 +134,6 @@ public:
     return res;
   }
 
-  int maxArea(std::vector<int>&& height) {
-    int left = 0;
-    int right = height.size() - 1;
-    int max_area = 0;
-    int area = 0;
-    int min_height = 0;
-
-    while(left < right)
-    {
-      min_height = std::min(height[left], height[right]);
-      area = (right - left) * (min_height);
-
-      if(area > max_area)
-        max_area = area;
-      
-      if(height[left] > height[right])
-        right--;
-      else
-        left++;
-    }
-
-    return max_area;
-  }
-
   std::vector<std::vector<int>> threeSum(std::vector<int>&& nums) {
       std::vector<std::vector<int>> res;
       sort(nums.begin(), nums.end());

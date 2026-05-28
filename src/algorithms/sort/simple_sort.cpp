@@ -4,7 +4,7 @@
 #include <limits>
 #include <algorithm>
 
-#include "data_struct/priority_queue/priority_queue.hpp"
+#include "priority_queue.hpp"
 
 #include <gtest/gtest.h>
 
