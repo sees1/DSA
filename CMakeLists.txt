@@ -28,15 +28,17 @@ enable_testing()
 # DATA STRUCTS
 
 # priority queue (max heap)
-add_library(priority_queue 
-${PROJECT_SOURCE_DIR}/src/data_struct/priority_queue/priority_queue.cpp)
-target_include_directories(priority_queue PUBLIC include)
-target_link_libraries(priority_queue PRIVATE GTest::gtest_main)
+add_library(priority_queue ${PROJECT_SOURCE_DIR}/src/data_struct/priority_queue/priority_queue.cpp)
+target_include_directories(priority_queue PUBLIC include/data_struct/priority_queue)
+
+# vector (dynamic contiguous massive)
+add_library(vector INTERFACE)
+target_include_directories(vector INTERFACE include/data_struct/vector)
 
 add_executable(data_struct 
 ${PROJECT_SOURCE_DIR}/src/data_struct/main.cpp)
-target_include_directories(data_struct PUBLIC include/data_struct/vector)
 target_link_libraries(data_struct PUBLIC priority_queue
+                                  PUBLIC vector
                                   PRIVATE GTest::gtest_main)
 
 # ALGORITHMS (by topic)
@@ -99,6 +101,14 @@ ${PROJECT_SOURCE_DIR}/src/algorithms/sliding_window/max_consecutive_ones_3.cpp)
 add_executable(minimum_size_subarr_sum
 ${PROJECT_SOURCE_DIR}/src/algorithms/sliding_window/minimum_size_subarr_sum.cpp)
 
+add_executable(max_subarr_sum_size_k
+${PROJECT_SOURCE_DIR}/src/algorithms/sliding_window/max_subarr_sum_size_k.cpp)
+target_link_libraries(max_subarr_sum_size_k PRIVATE GTest::gtest_main)
+
+add_executable(max_sum_of_dist_sub_len_k
+${PROJECT_SOURCE_DIR}/src/algorithms/sliding_window/max_sum_of_dist_sub_len_k.cpp)
+target_link_libraries(max_sum_of_dist_sub_len_k PRIVATE GTest::gtest_main)
+
 # string
 
 add_executable(string_compress
@@ -154,9 +164,6 @@ ${PROJECT_SOURCE_DIR}/src/algorithms/array/line_reflection.cpp)
 add_executable(merge_interval
 ${PROJECT_SOURCE_DIR}/src/algorithms/array/merge_interval.cpp)
 
-add_executable(two_sum
-${PROJECT_SOURCE_DIR}/src/algorithms/array/two_sum.cpp)
-
 add_executable(merge_sort_arr
 ${PROJECT_SOURCE_DIR}/src/algorithms/array/merge_sort_arr.cpp)
 
@@ -168,9 +175,6 @@ ${PROJECT_SOURCE_DIR}/src/algorithms/array/single_number.cpp)
 
 add_executable(remove_element
 ${PROJECT_SOURCE_DIR}/src/algorithms/array/remove_element.cpp)
-
-add_executable(intersection_of_two_arr
-${PROJECT_SOURCE_DIR}/src/algorithms/array/intersection_of_two_arr.cpp)
 
 add_executable(subarray_sum_eq_k
 ${PROJECT_SOURCE_DIR}/src/algorithms/array/subarr_sum_eq_k.cpp) # prefix sum pattern
@@ -184,17 +188,11 @@ ${PROJECT_SOURCE_DIR}/src/algorithms/array/kth_larg_elem_in_arr.cpp)
 add_executable(sort_matrix_diagonal
 ${PROJECT_SOURCE_DIR}/src/algorithms/array/sort_matrix_diagonal.cpp)
 
-add_executable(remove_dup_from_sort_arr_2
-${PROJECT_SOURCE_DIR}/src/algorithms/array/remove_dup_from_sort_arr_2.cpp)
-
 add_executable(find_diff_in_array
 ${PROJECT_SOURCE_DIR}/src/algorithms/array/find_diff_in_array.cpp)
 
 add_executable(rotate_image
 ${PROJECT_SOURCE_DIR}/src/algorithms/array/rotate_image.cpp)
-
-add_executable(3sum
-${PROJECT_SOURCE_DIR}/src/algorithms/array/3sum.cpp)
 
 add_executable(long_conseq_seq
 ${PROJECT_SOURCE_DIR}/src/algorithms/array/long_conseq_seq.cpp)
@@ -404,6 +402,10 @@ add_executable(ones_and_zeros
 ${PROJECT_SOURCE_DIR}/src/algorithms/dynamic_prog/ones_and_zeros.cpp)
 target_link_libraries(ones_and_zeros PRIVATE GTest::gtest_main)
 
+add_executable(pick_k_min_max_dist_dp
+${PROJECT_SOURCE_DIR}/src/algorithms/dynamic_prog/pick_k_min_max_dist_dp.cpp)
+target_link_libraries(pick_k_min_max_dist_dp PRIVATE GTest::gtest_main)
+
 # greedy
 
 add_executable(atm_machine
@@ -538,18 +540,57 @@ target_link_libraries(maximum_gap PRIVATE GTest::gtest_main)
 add_executable(simple_sort
 ${PROJECT_SOURCE_DIR}/src/algorithms/sort/simple_sort.cpp)
 target_link_libraries(simple_sort  PUBLIC  priority_queue
-                                PRIVATE GTest::gtest_main)
+                                   PRIVATE GTest::gtest_main)
 
 # search
 
 add_executable(find_min_in_rot_sort_arr
 ${PROJECT_SOURCE_DIR}/src/algorithms/search/find_min_in_rot_sort_arr.cpp)
 
-add_executable(two_sum_2
-${PROJECT_SOURCE_DIR}/src/algorithms/search/two_sum_2.cpp)
-
 add_executable(search_2d_matrix
 ${PROJECT_SOURCE_DIR}/src/algorithms/search/search_2d_matrix.cpp)
+
+add_executable(pick_k_min_max_dist
+${PROJECT_SOURCE_DIR}/src/algorithms/search/pick_k_min_max_dist.cpp)
+target_link_libraries(pick_k_min_max_dist PRIVATE GTest::gtest_main)
+
+# two pointers technique
+
+add_executable(two_sum
+${PROJECT_SOURCE_DIR}/src/algorithms/two_pointer/two_sum.cpp)
+target_link_libraries(two_sum PRIVATE GTest::gtest_main)
+
+add_executable(two_sum_2
+${PROJECT_SOURCE_DIR}/src/algorithms/two_pointer/two_sum_2.cpp)
+target_link_libraries(two_sum_2 PRIVATE GTest::gtest_main)
+
+add_executable(min_size_subarr_sum
+${PROJECT_SOURCE_DIR}/src/algorithms/two_pointer/min_size_subarr_sum.cpp)
+target_link_libraries(min_size_subarr_sum PRIVATE GTest::gtest_main)
+
+add_executable(remove_dup_from_sort_arr
+${PROJECT_SOURCE_DIR}/src/algorithms/two_pointer/remove_dup_from_sort_arr.cpp)
+target_link_libraries(remove_dup_from_sort_arr PRIVATE GTest::gtest_main)
+
+add_executable(remove_dup_from_sort_arr_2
+${PROJECT_SOURCE_DIR}/src/algorithms/two_pointer/remove_dup_from_sort_arr_2.cpp)
+target_link_libraries(remove_dup_from_sort_arr_2 PRIVATE GTest::gtest_main)
+
+add_executable(3sum
+${PROJECT_SOURCE_DIR}/src/algorithms/two_pointer/3sum.cpp)
+target_link_libraries(3sum PRIVATE GTest::gtest_main)
+
+add_executable(intersection_of_two_arr
+${PROJECT_SOURCE_DIR}/src/algorithms/two_pointer/intersection_of_two_arr.cpp)
+target_link_libraries(intersection_of_two_arr PRIVATE GTest::gtest_main)
+
+add_executable(next_permutation
+${PROJECT_SOURCE_DIR}/src/algorithms/two_pointer/next_permutation.cpp)
+target_link_libraries(next_permutation PRIVATE GTest::gtest_main)
+
+add_executable(compare_ver_num
+${PROJECT_SOURCE_DIR}/src/algorithms/two_pointer/compare_ver_num.cpp)
+target_link_libraries(compare_ver_num PRIVATE GTest::gtest_main)
 
 # GTest ALGORITHM test's
 
